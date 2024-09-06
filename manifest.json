@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "CensorIt",
+  "version": "1.0",
+  "description": "Nazarov A.A., 2024",
+  "permissions": ["activeTab", "storage"],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Censors settings Настройки цензора",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+   "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+    ]
+}
