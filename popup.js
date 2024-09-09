@@ -131,16 +131,16 @@ function makeVisibleByState(state){
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // теги в форму
-    let dataTags = await browser.storage.local.get('tags');
-    document.getElementById('tags').value = dataTags.tags;
+    let dataTags = await browser.storage.local.get('tags')
+    document.getElementById('tags').value = dataTags.tags  || "xxx\nporn";
     // белый список в форму
     let dataWhiteList = await browser.storage.local.get('whitelist');
-    document.getElementById('whitelist').value = dataWhiteList.whitelist;
+    document.getElementById('whitelist').value = dataWhiteList.whitelist || "google.com\nwww.google.com";
     let dataState = await browser.storage.local.get("state");
-    document.getElementById('state').value = dataState.state;
+    document.getElementById('state').value = dataState.state  || "UNLOCKED";;
     let dataPassword = await browser.storage.local.get("password");
-    document.getElementById("password1").value = dataPassword.password;
-    document.getElementById("password2").value = dataPassword.password;
+    document.getElementById("password1").value = dataPassword.password || "";
+    document.getElementById("password2").value = dataPassword.password || "";
     makeVisibleByState(dataState.state);
   } catch (error) {
     console.log("Error", error);
