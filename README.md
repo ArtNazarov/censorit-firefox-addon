@@ -13,6 +13,7 @@ b) the path to the resource or the resource name includes the keyword
 c) the parameter or parameter value is prohibited by the keyword
 d) the page markup contains the specified fragment
 3. Whitelist of allowed domains
+4. Password protection
 
 Installation: After downloading the extension code
 1) Enable developer mode in the browser
@@ -53,6 +54,7 @@ Blocklists:
 в) параметр или значение параметра запрещено по ключевому слову
 г) в разметке страницы есть заданный фрагмент
 3. Белый список разрешенных доменов
+4. Защита паролем
 
 Установка: После скачивания кода расширения
 1) Включить режим для разработчика в браузере
@@ -83,4 +85,5 @@ Blocklists:
 
 Скриншот настроек / Options screenshot
 
-![Screenshot](https://dl.dropbox.com/scl/fi/bhts1bh8s82grq4rlrv1m/firefox_censorit_upd1_1.png?rlkey=ihjkwr3fzvce681vwe09vbkba&st=wjhq43k7)
+![Screenshot 1](https://dl.dropbox.com/scl/fi/lfkk6nls6gr8ofv4a6aam/censortid_firefox_addon_upd_1_2.png?rlkey=2qrfirkr0gtrc1wju6y2z5l44&st=8qxl8y8q)
+![Screenshot 2](https://dl.dropbox.com/scl/fi/3sx889hcbovs0jhazonh8/censortid_firefox_addon_upd_1_2_other.png?rlkey=hembdxpca7eubar5l1tcz99g6&st=qnbjq4q6)
