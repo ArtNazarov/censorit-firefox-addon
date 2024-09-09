@@ -19,8 +19,21 @@
     </style>
 </head>
 <body>
-    <form>
-    <h3>Блокировать / Block </h3>
+    <input type="hidden" name="state" id="state">
+    <form id="unlock_password_form" name="unlock_password_form">
+        <label for="password">Пароль / Password</label><br/>
+        <input type="password" id="password" name="password" /><br/>
+        <input type="submit" value="Войти Login" id="btnLogin" name="btnLogin" /><br/>
+    </form><br/>
+    <form id="main_form" name="main_form">
+    <h3>Установка пароля /  Set up password</h3>
+    <label for="password1">Пароль / Password</label><br/>
+    <input type="password" id="password1" name="password1" /><br/>
+    <label for="password2">Пароль / Password</label><br/>
+    <input type="password" id="password2" name="password2" /><br/>
+    <button id="btnSetPassword" name="btnSetPassword">Назначить пароль Confirm password</button><br/>
+    <h3>Основные настройки / Main settings</h3>
+    <label for="tags">Блокировать / Block </label><br/>
     <textarea
         cols="40"
         rows="5"
