@@ -179,3 +179,10 @@ document.getElementById('btnLogin').addEventListener('click', async()=>{
     makeVisibleByState(state);
   };
 });
+
+// Выход из расширения
+document.getElementById('btnLogout').addEventListener('click', async()=>{
+    const state = "LOCKED";
+    browser.runtime.sendMessage({state: state});
+    makeVisibleByState(state);
+});
