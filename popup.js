@@ -118,15 +118,27 @@ document.getElementById('mysticFilters').onclick = function(e){
 
 // Считываем значение настройки после загрузки диалога
 document.addEventListener('DOMContentLoaded', () => {
+    // теги в форму
     browser.storage.local.get('tags').then((data) => {
         if (data.tags) {
             document.getElementById('tags').value = data.tags;
         }
     });
+    // белый список в форму
+    browser.storage.local.get('whitelist').then((data) => {
+      if (data.whitelist) {
+          document.getElementById('whitelist').value = data.whitelist;
+      }
+  });
 });
 
-
+// Обработка сохранения формы
 document.getElementById('saveButton').addEventListener('click', () => {
-    const textInput = document.getElementById('tags').value;
-    browser.runtime.sendMessage({ tags: textInput });
+    // Сохраняем теги в лок. хран.
+    const myTags = document.getElementById('tags').value;
+    browser.runtime.sendMessage({ tags: myTags });
+    // Сохраняем белый список в лок. хран.
+    const myWhiteList = document.getElementById('whitelist').value;
+    browser.runtime.sendMessage({ whitelist: myWhiteList });
+
 });

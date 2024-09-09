@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "CensorIt",
-  "version": "1.0",
-  "description": "Nazarov A.A., 2024",
+  "version": "1.1",
+  "description": "Blocks distracting or unwanted content by keywords. User can set up a whitelist of domains. Nazarov A.A., 2024",
   "permissions": ["activeTab", "storage"],
   "browser_action": {
     "default_icon": "icon.png",

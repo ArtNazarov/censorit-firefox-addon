@@ -22,8 +22,8 @@
     <form>
     <h3>Блокировать / Block </h3>
     <textarea
-        cols="80"
-        rows="10"
+        cols="40"
+        rows="5"
         name="tags" 
         id="tags" 
         placeholder="Теги построчно Tags line by line...">
@@ -48,8 +48,15 @@
             <input type="button" id="hateFilters" name="hateFilters" value="Язык ненависти / Hate slang"><br/>
             <input type="button" id="mysticFilters" name="mysticFilters" value="Мистика / Mystic"><br/></div>
         </div>    
-  
-  
+    <br/>
+    <h3>Белый список доменов / Domains whitelist </h3>
+    <textarea
+        cols="40"
+        rows="5"
+        name="whitelist" 
+        id="whitelist" 
+        placeholder="Домены построчно Domains line by line...">
+    </textarea>
     <br/>
     <button id="saveButton">Применить / Apply</button>
     </form>

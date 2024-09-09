@@ -1,3 +1,51 @@
+function computeLPS(pattern) {
+  const lps = new Array(pattern.length).fill(0);
+  let length = 0; // Длина предыдущего наибольшего префикса
+  let i = 1;
+
+  while (i < pattern.length) {
+      if (pattern[i] === pattern[length]) {
+          length++;
+          lps[i] = length;
+          i++;
+      } else {
+          if (length !== 0) {
+              length = lps[length - 1];
+          } else {
+              lps[i] = 0;
+              i++;
+          }
+      }
+  }
+
+  return lps;
+}
+
+function kmpSearch(sMyString, sPattern) {
+  const lps = computeLPS(sPattern);
+  let i = 0; // Индекс для sMyString
+  let j = 0; // Индекс для sPattern
+
+  while (i < sMyString.length) {
+      if (sPattern[j] === sMyString[i]) {
+          i++;
+          j++;
+      }
+
+      if (j === sPattern.length) {
+          return true; // Найдена подстрока
+      } else if (i < sMyString.length && sPattern[j] !== sMyString[i]) {
+          if (j !== 0) {
+              j = lps[j - 1];
+          } else {
+              i++;
+          }
+      }
+  }
+
+  return false; // Подстрока не найдена
+}
+
 function addLayer(){
     // Create the layer element
     const layer = document.createElement('div');
@@ -42,111 +90,126 @@ function addLayer(){
       return layer;
       }
     
-    function isDocumentHasTag(tag) {
-      // Приводим тег к нижнему регистру для регистронезависимого сравнения
-      tag = tag.toLowerCase();
-    
-      // Проверяем, является ли тег подстрокой текущего домена
-      if (window.location.hostname.toLowerCase().includes(tag)) {
-        return true;
-      }
-    
-      // Проверяем, является ли тег подстрокой текущего URL
-      if (window.location.href.toLowerCase().includes(tag)) {
-        return true;
-      }
-    
-      // Получаем параметры URL в виде объекта
-      const urlParams = new URLSearchParams(window.location.search);
-    
-      // Проверяем, является ли тег подстрокой одного из параметров или значений параметров
-      for (const [key, value] of urlParams) {
-        if (key.toLowerCase().includes(tag) || value.toLowerCase().includes(tag)) {
+      function isAllowedHostName(whitelist){
+        const hostName = window.location.hostname.toLowerCase();
+        let domains = whitelist.toLowerCase().split("\n");
+        let flag = false;
+        for (let i=0;i<domains.length;i++){
+          let someWhiteListDomain = domains[i].trim();
+          flag = flag || (kmpSearch(hostName, someWhiteListDomain));
+        };
+        return flag;
+      } 
+      
+      function isDocumentHasTag(tag) {
+        // Приводим тег к нижнему регистру для регистронезависимого сравнения
+        tag = tag.toLowerCase();
+      
+        // Проверяем, является ли тег подстрокой текущего домена
+        if (kmpSearch( window.location.hostname.toLowerCase(), tag)) {
           return true;
         }
-      }
-    
-      // Поиск по тексту
-       const elements = document.querySelectorAll('*'); 
-       for (let element of elements){
-        if (element.textContent.toLowerCase().includes(tag)){
+      
+        // Проверяем, является ли тег подстрокой текущего URL
+        if (kmpSearch(window.location.href.toLowerCase(), tag)) {
           return true;
         }
-       }
+      
+        // Получаем параметры URL в виде объекта
+        const urlParams = new URLSearchParams(window.location.search);
+      
+        // Проверяем, является ли тег подстрокой одного из параметров или значений параметров
+        for (const [key, value] of urlParams) {
+          if (kmpSearch(key.toLowerCase(), tag) || kmpSearch(value.toLowerCase(), tag)) {
+            return true;
+          }
+        }
+      
+        // Поиск по тексту
+         const elements = document.querySelectorAll('*'); 
+         for (let element of elements){
+          if (kmpSearch(element.textContent.toLowerCase(), tag)){
+            return true;
+          }
+         }
+      
+        
+      
+        // Если тег не найден нигде, возвращаем false
+        return false;
+}      
+
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+      
+      const objTags = await browser.storage.local.get('tags');
+      const tags = objTags.tags;
+      const objWhiteList = await browser.storage.local.get('whitelist');
+      const whitelist = objWhiteList.whitelist;
+      console.log('Используются теги:', tags);
+      console.log('Используется белый список: ', whitelist);
+
+
+      let layer = addLayer();
+      
+      
+      var readyStateCheckInterval = setInterval(function() {
     
       
+
+
+      if (document.readyState === "complete") {
+        
+        clearInterval(readyStateCheckInterval);
+      
+        
+        // ----------------------------------------------------------
+        // This part of the script triggers when page is done loading
+        console.log("(C) CensorIt Nazarov A.A., 2024, Orenburg, Russia");
+        console.log("Расширение готово к работе!");
+
+                    // ----------------------------------------------------------
+      if (isAllowedHostName(whitelist)){
+        console.log('Domain is whitelisted');
+        layer.remove();
+        clearInterval(readyStateCheckInterval);
+        return;
+      }
+      
+         
+      let arrTags = tags.split(/\r?\n/);  
     
-      // Если тег не найден нигде, возвращаем false
-      return false;
-    }
-
-document.addEventListener('DOMContentLoaded', () => {
-    browser.storage.local.get('tags', (data) => {
-        if (data.tags) {
-            // const p = document.createElement('p');
-            // p.textContent = `Теги: ${data.tags}`;
-            // document.body.appendChild(p);
-            // console.log(data.tags);
-
-
-            let layer = addLayer();
-  
-  
-            var readyStateCheckInterval = setInterval(function() {
-         
-           
-        
-        
-            if (document.readyState === "complete") {
-                
-            clearInterval(readyStateCheckInterval);
-          
-            
-                // ----------------------------------------------------------
-                // This part of the script triggers when page is done loading
-                console.log("(C) CensorIt Nazarov A.A., 2024, Orenburg, Russia");
-                console.log("Расширение готово к работе!");
-        
-                        // ----------------------------------------------------------
-          
-         
-          
-          console.log('Теги из локального хранилища = ' + data.tags );
-          
-          let tags =  data.tags;
-           
-          let arrTags = tags.split(/\r?\n/);  
-         
-          let flag = false;
-          let foundedStr = "";
-          for (let i=0;i<arrTags.length;i++){
-            let tag = arrTags[i].trim();
-            if (tag !== "" && isDocumentHasTag(tag)){
-              console.log(`Тег ${tag} найден! `);
-              foundedStr += " "+tag;
-              flag = true;
-            } else {
-              console.log(`Тег ${tag} не найден... `);
-            }
-          }
-        
-          if (flag){
-            document.body.innerHTML = '';
-            addInfo("Заблокировано", "Найден(ы):" + foundedStr);
-            let counter = 0;
-            setInterval( function(){if (counter>3) { window.location.href = "http://0.0.0.0";}; counter++;}, 2000);
-            
-          } else {
-            layer.remove();
-          }
-          
-                  
-                }
-            }
-            , 1500);
-
-
-
+      let flag = false;
+      let foundedStr = "";
+      for (let i=0;i<arrTags.length;i++){
+        let tag = arrTags[i].trim();
+        if (tag !== "" && isDocumentHasTag(tag)){
+          console.log(`Тег ${tag} найден! `);
+          foundedStr += " "+tag;
+          flag = true;
+        } else {
+          console.log(`Тег ${tag} не найден... `);
         }
-    });
-});
+      }
+
+      if (flag){
+        document.body.innerHTML = '';
+        addInfo("Заблокировано", "Найден(ы):" + foundedStr);
+        let counter = 0;
+        setInterval( function(){if (counter>3) { window.location.href = "http://0.0.0.0";}; counter++;}, 2000);
+        
+      } else {
+        layer.remove();
+      }
+      
+              
+            }
+        }
+        , 1500);
+      
+
+  } catch (error) { 
+    console.error("Error", error);
+  } 
+}             
+);
