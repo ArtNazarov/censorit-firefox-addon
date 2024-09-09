@@ -85,5 +85,5 @@ Blocklists:
 
 Скриншот настроек / Options screenshot
 
-![Screenshot 1](https://dl.dropbox.com/scl/fi/lfkk6nls6gr8ofv4a6aam/censortid_firefox_addon_upd_1_2.png?rlkey=2qrfirkr0gtrc1wju6y2z5l44&st=8qxl8y8q)
-![Screenshot 2](https://dl.dropbox.com/scl/fi/3sx889hcbovs0jhazonh8/censortid_firefox_addon_upd_1_2_other.png?rlkey=hembdxpca7eubar5l1tcz99g6&st=qnbjq4q6)
+![Screenshot 1](https://dl.dropbox.com/scl/fi/1l6nlq7xgo59z5fa77lzi/censorit_firefox_styled1.png?rlkey=ul998tus3xvc1u0g8hhoua7s5&st=cc7r4jqz)
+![Screenshot 2](https://dl.dropbox.com/scl/fi/pdxnlp5o4zp0rjis3dp59/censorit_firefox_styled2.png?rlkey=2n7qgsaut0fx9ynak0um69c9k&st=2mior7e6)
